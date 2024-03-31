@@ -1,11 +1,5 @@
 import { createWorker } from 'tesseract.js';
-
-export interface File {
-  name: string;
-  text: string;
-}
-
-export type FileResponse = File[];
+import { FileResponse } from './interfaces/file.response.interface';
 
 export class Tesseract {
   private worker: Tesseract.Worker;
