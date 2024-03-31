@@ -45,6 +45,18 @@ npm install
 - pdf-ts: ^0.0.2
 - tesseract.js: ^5.0.5
 
+## Routes
+
+POST /ocr
+Performs OCR on the uploaded files and finds the specified words.
+
+Request:
+Body: A multipart/form-data request with a files field containing the files to perform OCR on.
+Query: An OcrQueryDto object with a wordsToFind field containing an array of words to find.
+
+Response:
+A object containing the results of the OCR and word finding operation.
+
 ## Demonstration Images
 
 Documentation in development....
