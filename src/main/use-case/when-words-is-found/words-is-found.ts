@@ -1,7 +1,7 @@
 import { FilesResponse } from '../when-success-read-image/interfaces/read-file-response.interface';
 
 export const Status = {
-  SUCCESS: 'success',
+  APPROVED: 'approved',
   REJECTED: 'rejected',
   REPROVED: 'reproved',
 } as const;
@@ -59,7 +59,7 @@ export class WordsIsFound {
       return Status.REPROVED;
     }
 
-    return Status.SUCCESS;
+    return Status.APPROVED;
   }
 
   percent(wordsCount: number): number {
