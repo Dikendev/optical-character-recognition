@@ -1,24 +1,34 @@
-import { FileResponse } from '../../../external/ocr/tesseract';
+import {
+  File,
+  FileResponse,
+} from '../../../external/ocr/interfaces/file.response.interface';
+import {
+  FilesResponse,
+  WordsCount,
+} from './interfaces/read-file-response.interface';
 import { ReadFile } from './read-file.interface';
 
-export interface WordsCount {
-  fileName: string;
-  count: number;
-}
-
-export type FindWordsResponse = WordsCount[];
-
 export class SuccessReadFile implements ReadFile {
-  constructor(private text: FileResponse) {}
+  constructor(private filesResponses: FileResponse) {}
 
-  findWords(wordsToFind: string[]): FindWordsResponse {
-    const response: FindWordsResponse = [];
-    for (const word of this.text) {
-      const words = wordsToFind.filter((word) =>
-        this.text.forEach((item) => item.text.includes(word)),
-      );
-      response.push({ fileName: word.name, count: words.length });
-    }
-    return response;
+  findWords(wordsToFind: string[]): FilesResponse {
+    return this.filesResponses
+      .map<WordsCount>((fileResponse) => {
+        const foundWords = this.getWordsFound(wordsToFind, fileResponse);
+        return foundWords.length
+          ? this.getWordsCount(fileResponse, foundWords)
+          : null;
+      })
+      .filter(Boolean);
+  }
+
+  getWordsFound(wordsToFind: string[], fileResponse: File): string[] {
+    return wordsToFind.filter((wordToFind) =>
+      fileResponse.text.includes(wordToFind),
+    );
+  }
+
+  getWordsCount(fileResponse: File, foundWords: string[]): WordsCount {
+    return { fileName: fileResponse.name, count: foundWords.length };
   }
 }
