@@ -21,53 +21,42 @@
 </p>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  
+# Optical Character Recognition (OCR) for Enhanced Candidate Screening in Human Resources
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Human Resources departments are increasingly leveraging the power of technologies to streamline and optimize their recruitment processes. One such technology that I'm going to focus on is Optical Character Recognition (OCR), which enables the automated extraction of text from images and documents. I will develop a simple algorithm to simulate what big tech companies use to analyze resumes and assess candidates suitability for further consideration.
 
 ## Installation
 
-```bash
-$ npm install
-```
-
-## Running the app
+To install all the dependencies, use the package manager [npm](https://www.npmjs.com/)
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Test
+## Dependencies
 
-```bash
-# unit tests
-$ npm run test
+- @nestjs/common: ^10.0.0
+- @nestjs/core: ^10.0.0
+- @nestjs/platform-express: ^10.0.0
+- class-transformer: ^0.5.1
+- class-validator: ^0.14.1
+- exceljs: ^4.4.0
+- pdf-ts: ^0.0.2
+- tesseract.js: ^5.0.5
 
-# e2e tests
-$ npm run test:e2e
+## Demonstration Images
 
-# test coverage
-$ npm run test:cov
-```
+Documentation in development....
 
-## Support
+## Conclusion
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+The proposed project aims to leverage OCR technology used in Human Resources, offering a scalable, efficient, and data-driven approach to talent acquisition. By demonstrating the power of OCR and machine learning in recruitment.
 
-## Stay in touch
+## Contributing
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Pull requests are welcome <3. Please make sure to update tests as appropriate.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT](https://choosealicense.com/licenses/mit/)
