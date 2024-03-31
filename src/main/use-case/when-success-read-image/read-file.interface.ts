@@ -1,5 +1,5 @@
-import { FindWordsResponse } from './success-read-file';
+import { FilesResponse } from './interfaces/read-file-response.interface';
 
-export abstract class ReadFile {
-  findWords: (wordsToFind: string[]) => FindWordsResponse;
+export interface ReadFile {
+  findWords: (wordsToFind: string[]) => FilesResponse;
 }
