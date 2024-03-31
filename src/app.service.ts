@@ -1,5 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { FileResponse, Tesseract } from './external/ocr/tesseract';
+import { Tesseract } from './external/ocr/tesseract';
+import {
+  CandidateStatusList,
+  WordsIsFound,
+} from './main/use-case/when-words-is-found/words-is-found';
+import { SuccessReadFile } from './main/use-case/when-success-read-image/success-read-file';
+import { OcrQueryDto } from './app.controller';
 
 @Injectable()
 export class AppService {
@@ -7,8 +13,17 @@ export class AppService {
 
   async recognizeFile(
     files: Array<Express.Multer.File>,
-  ): Promise<FileResponse> {
+    wordsToFind: OcrQueryDto,
+  ): Promise<CandidateStatusList> {
     const result = await this.tesseract.recognizeFilePt(files);
-    return result;
+    const readFile = new SuccessReadFile(result);
+    const fileResponse = readFile.findWords(wordsToFind.wordsToFind);
+    const wordsIsFound = new WordsIsFound(
+      fileResponse,
+      wordsToFind.wordsToFind.length,
+    );
+    const candidateStatus = wordsIsFound.candidateStatus();
+
+    return candidateStatus;
   }
 }
