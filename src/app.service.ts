@@ -1,11 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Tesseract } from './external/ocr/tesseract';
-import {
-  CandidateStatusList,
-  WordsIsFound,
-} from './main/use-case/when-words-is-found/words-is-found';
+import { WordsIsFound } from './main/use-case/when-words-is-found/words-is-found';
 import { SuccessReadFile } from './main/use-case/when-success-read-image/success-read-file';
 import { OcrQueryDto } from './app.controller';
+import { CandidateStatusList } from './main/use-case/when-words-is-found/interfaces/candidate-status.interface';
 
 @Injectable()
 export class AppService {
