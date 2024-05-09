@@ -1,21 +1,9 @@
 import { FilesResponse } from '../when-success-read-image/interfaces/read-file-response.interface';
-
-export const Status = {
-  APPROVED: 'approved',
-  REJECTED: 'rejected',
-  REPROVED: 'reproved',
-} as const;
-
-export type Status = (typeof Status)[keyof typeof Status];
-
-export interface CandidateStatus {
-  fileName: string;
-  wordsCount: number;
-  percent: number;
-  status: Status;
-}
-
-export type CandidateStatusList = CandidateStatus[];
+import {
+  CandidateStatusList,
+  CandidateStatus,
+  Status,
+} from './interfaces/candidate-status.interface';
 
 export const REJECTED_THRESHOLD = 10;
 export const REPROVED_THRESHOLD = 80;
