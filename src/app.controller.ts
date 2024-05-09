@@ -8,11 +8,11 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { pdfToText } from 'pdf-ts';
 import { SheetRepository } from './repository/sheet.repository';
-import { CandidateStatusList } from './main/use-case/when-words-is-found/words-is-found';
 import { IsArray, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { PdfRepository } from './repository/pdf.repository';
+import { CandidateStatusList } from './main/use-case/when-words-is-found/interfaces/candidate-status.interface';
 
 export class OcrQueryDto {
   @IsArray()
@@ -26,12 +26,13 @@ export class AppController {
   constructor(
     private readonly sheetRepository: SheetRepository,
     private readonly appService: AppService,
+    private readonly pdfRepository: PdfRepository,
   ) {}
 
   @Post('upload-pdf')
   @UseInterceptors(FileInterceptor('file'))
   async pdf(@UploadedFile() file: Express.Multer.File) {
-    return pdfToText(file.buffer);
+    return await this.pdfRepository.read(file.buffer);
   }
 
   @Post('upload-sheet')
