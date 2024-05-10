@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { Tesseract } from './tesseract';
+import { PdfModule } from '../pdf/pdf.module';
 
 @Module({
-  imports: [],
+  imports: [PdfModule],
   providers: [Tesseract],
   exports: [Tesseract],
 })

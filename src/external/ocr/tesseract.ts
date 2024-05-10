@@ -1,9 +1,14 @@
 import { createScheduler, createWorker } from 'tesseract.js';
 import { FileResponse } from './interfaces/file.response.interface';
+import { Injectable } from '@nestjs/common';
+import { PdfRepository } from '../../repository/pdf.repository';
 
+@Injectable()
 export class Tesseract {
   private worker: Tesseract.Worker;
   private scheduler: Tesseract.Scheduler;
+
+  constructor(private readonly pdfRepository: PdfRepository) {}
 
   async initWorker(lang: string) {
     this.scheduler = createScheduler();
@@ -38,8 +43,17 @@ export class Tesseract {
       const resArr2 = Array(files.length);
 
       for (let i = 0; i < files.length; i++) {
+        let newFile: Buffer;
+
+        if (files[i].mimetype === 'application/pdf') {
+          const readPdf = await this.pdfRepository.read(files[i]);
+          newFile = readPdf.buffer;
+        } else {
+          newFile = files[i].buffer;
+        }
+
         resArr2[i] = this.scheduler
-          .addJob('recognize', files[i].buffer)
+          .addJob('recognize', newFile)
           .then((result) => {
             const fileName = files[i].originalname;
             const fileText = result.data.text.toLowerCase();
