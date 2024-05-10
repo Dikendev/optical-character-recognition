@@ -8,6 +8,7 @@ export type Status = (typeof Status)[keyof typeof Status];
 
 export interface CandidateStatus {
   fileName: string;
+  documentWords: string;
   wordsCount: number;
   percent: number;
   status: Status;

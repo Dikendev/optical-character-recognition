@@ -20,12 +20,14 @@ export class WordsIsFound {
     }
 
     return this.wordsResponse.map<CandidateStatus>((file) => {
+      const documentWords = file.documentWords;
       const fileName = file.fileName;
       const wordsCount = file.count;
       const percent = this.percent(wordsCount);
       const status = this.checkStatus(percent);
 
       return {
+        documentWords,
         fileName,
         wordsCount,
         percent,

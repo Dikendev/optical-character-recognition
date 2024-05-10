@@ -29,6 +29,10 @@ export class SuccessReadFile implements ReadFile {
   }
 
   getWordsCount(fileResponse: File, foundWords: string[]): WordsCount {
-    return { fileName: fileResponse.name, count: foundWords.length };
+    return {
+      documentWords: fileResponse.text,
+      fileName: fileResponse.name,
+      count: foundWords.length,
+    };
   }
 }
