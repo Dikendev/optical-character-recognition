@@ -32,7 +32,7 @@ export class AppController {
   @Post('upload-pdf')
   @UseInterceptors(FileInterceptor('file'))
   async pdf(@UploadedFile() file: Express.Multer.File) {
-    return await this.pdfRepository.read(file.buffer);
+    return await this.pdfRepository.read(file);
   }
 
   @Post('upload-sheet')
