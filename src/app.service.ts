@@ -13,15 +13,20 @@ export class AppService {
     files: Array<Express.Multer.File>,
     wordsToFind: OcrQueryDto,
   ): Promise<CandidateStatusList> {
-    const result = await this.tesseract.recognizeFilePt(files);
-    const readFile = new SuccessReadFile(result);
-    const fileResponse = readFile.findWords(wordsToFind.wordsToFind);
-    const wordsIsFound = new WordsIsFound(
-      fileResponse,
-      wordsToFind.wordsToFind.length,
-    );
-    const candidateStatus = wordsIsFound.candidateStatus();
+    try {
+      const result = await this.tesseract.recognizeFilePt(files);
+      const readFile = new SuccessReadFile(result);
+      const fileResponse = readFile.findWords(wordsToFind.wordsToFind);
+      const wordsIsFound = new WordsIsFound(
+        fileResponse,
+        wordsToFind.wordsToFind.length,
+      );
+      const candidateStatus = wordsIsFound.candidateStatus();
 
-    return candidateStatus;
+      return candidateStatus;
+    } catch (error) {
+      console.error('Error recognizing file:', error);
+      return error;
+    }
   }
 }
