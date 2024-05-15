@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Tesseract } from './external/ocr/tesseract';
 import { WordsIsFound } from './main/use-case/when-words-is-found/words-is-found';
 import { SuccessReadFile } from './main/use-case/when-success-read-image/success-read-file';
-import { OcrQueryDto } from './app.controller';
 import { CandidateStatusList } from './main/use-case/when-words-is-found/interfaces/candidate-status.interface';
+import { OcrDto } from './app.controller';
 
 @Injectable()
 export class AppService {
@@ -11,7 +11,7 @@ export class AppService {
 
   async recognizeFile(
     files: Array<Express.Multer.File>,
-    wordsToFind: OcrQueryDto,
+    wordsToFind: OcrDto,
   ): Promise<CandidateStatusList> {
     try {
       const result = await this.tesseract.recognizeFilePt(files);
