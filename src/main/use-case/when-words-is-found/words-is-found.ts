@@ -15,12 +15,8 @@ export class WordsIsFound {
   ) {}
 
   candidateStatus(): CandidateStatusList {
-    if (!this.isFilesResponseValid()) {
-      throw new Error('Invalid files response');
-    }
-
     return this.wordsResponse.map<CandidateStatus>((file) => {
-      const documentWords = file.documentWords;
+      const documentWords = file.documentWords.split(' ');
       const fileName = file.fileName;
       const wordsCount = file.count;
       const percent = this.percent(wordsCount);
@@ -29,15 +25,13 @@ export class WordsIsFound {
       return {
         documentWords,
         fileName,
+        searchWords: file.searchWords,
+        foundWords: file.foundWords,
         wordsCount,
         percent,
         status,
       };
     });
-  }
-
-  isFilesResponseValid(): boolean {
-    return this.wordsResponse.length > 0;
   }
 
   checkStatus(percent: number): Status {
