@@ -56,7 +56,12 @@ export class Tesseract {
           .addJob('recognize', newFile)
           .then((result) => {
             const fileName = files[i].originalname;
-            const fileText = result.data.text.toLowerCase();
+            const fileText = result.data.text?.toLowerCase();
+
+            if (!fileText || fileText === '') {
+              throw new Error('Can not read the document text.');
+            }
+
             return { name: fileName, text: fileText };
           });
       }
