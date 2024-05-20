@@ -11,13 +11,11 @@ import { ReadFile } from './read-file.interface';
 export class SuccessReadFile implements ReadFile {
   constructor(private filesResponses: FileResponse) {}
 
-  findWords(wordsToFind: string[]): FilesResponse {
+  findWords(searchWords: string[]): FilesResponse {
     return this.filesResponses
       .map<WordsCount>((fileResponse) => {
-        const foundWords = this.getWordsFound(wordsToFind, fileResponse);
-        return foundWords.length
-          ? this.getWordsCount(fileResponse, foundWords)
-          : null;
+        const foundWords = this.getWordsFound(searchWords, fileResponse);
+        return this.getWordsCount(fileResponse, searchWords, foundWords);
       })
       .filter(Boolean);
   }
@@ -28,10 +26,16 @@ export class SuccessReadFile implements ReadFile {
     );
   }
 
-  getWordsCount(fileResponse: File, foundWords: string[]): WordsCount {
+  getWordsCount(
+    fileResponse: File,
+    searchWords: string[],
+    foundWords: string[],
+  ): WordsCount {
     return {
-      documentWords: fileResponse.text,
       fileName: fileResponse.name,
+      searchWords,
+      documentWords: fileResponse.text,
+      foundWords,
       count: foundWords.length,
     };
   }
