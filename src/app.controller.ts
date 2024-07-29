@@ -42,6 +42,11 @@ export class AppController {
     return this.appService.recognizeFile(files, wordsToFind);
   }
 
+  @Get('scrape')
+  async navigate() {
+    await this.appService.scrapeTargetSite();
+  }
+
   @Get('health')
   health() {
     return {
