@@ -3,6 +3,12 @@ import { FileResponse } from './interfaces/file.response.interface';
 import { Injectable } from '@nestjs/common';
 import { PdfRepository } from '../../repository/pdf.repository';
 
+const _PORTUGUESE_LANG = 'por';
+
+const _APPLICATION_TYPE = {
+  PDF: 'application/pdf',
+} as const;
+
 @Injectable()
 export class Tesseract {
   private worker: Tesseract.Worker;
@@ -32,11 +38,11 @@ export class Tesseract {
     files: Array<Express.Multer.File>,
   ): Promise<FileResponse> {
     try {
-      const workerN = files.length;
-      const resArr = Array(workerN);
+      const workers = files.length;
+      const resArr = Array(workers);
 
-      for (let i = 0; i < workerN; i++) {
-        resArr[i] = this.initWorker('por');
+      for (let i = 0; i < workers; i++) {
+        resArr[i] = this.initWorker(_PORTUGUESE_LANG);
       }
 
       await Promise.all(resArr);
@@ -45,7 +51,7 @@ export class Tesseract {
       for (let i = 0; i < files.length; i++) {
         let newFile: Buffer;
 
-        if (files[i].mimetype === 'application/pdf') {
+        if (files[i].mimetype === _APPLICATION_TYPE.PDF) {
           const readPdf = await this.pdfRepository.read(files[i]);
           newFile = readPdf.buffer;
         } else {
