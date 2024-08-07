@@ -23,15 +23,11 @@ export class Tesseract {
   }
 
   async terminateWorker() {
-    if (this.worker) {
-      await this.worker.terminate();
-    }
+    if (this.worker) await this.worker.terminate();
   }
 
   async schedulerTerminate() {
-    if (this.scheduler) {
-      await this.scheduler.terminate();
-    }
+    if (this.scheduler) await this.scheduler.terminate();
   }
 
   async recognizeFilePt(

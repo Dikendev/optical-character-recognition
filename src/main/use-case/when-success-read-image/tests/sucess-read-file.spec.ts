@@ -1,6 +1,6 @@
 import { FilesResponse } from '../interfaces/read-file-response.interface';
 import { SuccessReadFile } from '../success-read-file';
-import { fileResponseMock } from './files-mock';
+import { file3Mock, fileResponseMock } from './files-mock';
 
 describe('SuccessReadFile', () => {
   const filesMock = fileResponseMock;
@@ -26,7 +26,26 @@ describe('SuccessReadFile', () => {
     const wordsToFind = ['word11'];
     const readFile = new SuccessReadFile(filesMock);
     const result = readFile.findWords(wordsToFind);
-    const expected: FilesResponse = [{ fileName: 'file1', count: 1 }];
+
+    console.log('result', result);
+    const expected: FilesResponse = [
+      {
+        fileName: 'file1',
+        searchWords: ['word11'],
+        documentWords:
+          'word1 word2 word3 word4 word5 word6 word7 word8 word9 word10 word11',
+        foundWords: ['word11'],
+        count: 1,
+      },
+      {
+        fileName: 'file2',
+        searchWords: ['word11'],
+        documentWords:
+          'word1 word2 word3 word4 word5 word6 word7 word8 word9 word10',
+        foundWords: [],
+        count: 0,
+      },
+    ];
     expect(result).toEqual(expected);
   });
 
@@ -38,6 +57,17 @@ describe('SuccessReadFile', () => {
       const readFile = new SuccessReadFile(filesMock);
       const wordsFound = readFile.getWordsFound(wordsToFind, filesMock[0]);
       expect(wordsFound).toEqual(['word1', 'word2']);
+    });
+  });
+
+  describe('filterWords method', () => {
+    it('should log the words to filter', () => {
+      const readFile = new SuccessReadFile(file3Mock);
+
+      const wordsFound = readFile.findWords(['vencimento', 'total']);
+
+      const filteredData = readFile.filterWords(wordsFound[0].documentWords);
+      console.log('filteredData', filteredData);
     });
   });
 });
