@@ -34,7 +34,7 @@ export class AppService {
     }
   }
 
-  async navigate() {
+  async scrapeTargetSite() {
     const puppeteer = new Puppeteer(this.logger);
     await puppeteer.init();
     const url = process.env.SITE_SCRAPE_TARGET;
