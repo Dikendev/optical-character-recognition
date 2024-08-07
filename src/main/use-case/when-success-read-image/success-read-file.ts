@@ -39,4 +39,10 @@ export class SuccessReadFile implements ReadFile {
       count: foundWords.length,
     };
   }
+
+  filterWords(words: string): string {
+    const wordsDecomposed = words.split(' ').filter((word) => word.length > 1);
+    const outputString = wordsDecomposed[0].replace(/\\n/g, '');
+    return outputString;
+  }
 }
